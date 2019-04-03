@@ -1,0 +1,20 @@
+{
+	"server": {
+		"host": "localhost",
+		"port": 1111
+	},
+	"sqlVietNamWork": {
+		"dialect": "mssql",
+		"host": "10.9.2.67",
+		"database": "vietnamwork_raw",
+		"user": "thanh.nguyen",
+		"password": "Acifl4VBVP"
+	},
+	"sqlMuaSamCong": {
+		"dialect": "mssql",
+		"host": "10.9.2.67",
+		"database": "muasamcong_raw",
+		"user": "thanh.nguyen",
+		"password": "Acifl4VBVP"
+	}
+}
