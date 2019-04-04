@@ -59,7 +59,7 @@ const CrawlFullData = (data) => {
     });
 }
 
-// crawlOutsideData(urlCrawl, indexCrawl)
-// setInterval(function () { crawlOutsideData(urlCrawl, indexCrawl) }, timeCrawl);
+crawlOutsideData(urlCrawl, indexCrawl)
+setInterval(function () { crawlOutsideData(urlCrawl, indexCrawl) }, timeCrawl);
 
 module.exports = router;

@@ -158,34 +158,34 @@ const CrawlFullData = (data, indexArr) => {
     });
 }
 
-crawlOutsideData(0)
-crawlOutsideData(1)
-crawlOutsideData(2)
-crawlOutsideData(3)
-crawlOutsideData(4)
-crawlOutsideData(5)
-crawlOutsideData(6)
-crawlOutsideData(7)
-crawlOutsideData(8)
-crawlOutsideData(9)
-crawlOutsideData(10)
-crawlOutsideData(11)
-crawlOutsideData(12)
-crawlOutsideData(13)
-setInterval(function () { crawlOutsideData(0) }, timeCrawl);
-setInterval(function () { crawlOutsideData(1) }, timeCrawl);
-setInterval(function () { crawlOutsideData(2) }, timeCrawl);
-setInterval(function () { crawlOutsideData(3) }, timeCrawl);
-setInterval(function () { crawlOutsideData(4) }, timeCrawl);
-setInterval(function () { crawlOutsideData(5) }, timeCrawl);
-setInterval(function () { crawlOutsideData(6) }, timeCrawl);
-setInterval(function () { crawlOutsideData(7) }, timeCrawl);
-setInterval(function () { crawlOutsideData(8) }, timeCrawl);
-setInterval(function () { crawlOutsideData(9) }, timeCrawl);
-setInterval(function () { crawlOutsideData(10) }, timeCrawl);
-setInterval(function () { crawlOutsideData(11) }, timeCrawl);
-setInterval(function () { crawlOutsideData(12) }, timeCrawl);
-setInterval(function () { crawlOutsideData(13) }, timeCrawl);
+// crawlOutsideData(0)
+// crawlOutsideData(1)
+// crawlOutsideData(2)
+// crawlOutsideData(3)
+// crawlOutsideData(4)
+// crawlOutsideData(5)
+// crawlOutsideData(6)
+// crawlOutsideData(7)
+// crawlOutsideData(8)
+// crawlOutsideData(9)
+// crawlOutsideData(10)
+// crawlOutsideData(11)
+// crawlOutsideData(12)
+// crawlOutsideData(13)
+// setInterval(function () { crawlOutsideData(0) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(1) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(2) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(3) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(4) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(5) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(6) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(7) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(8) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(9) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(10) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(11) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(12) }, timeCrawl);
+// setInterval(function () { crawlOutsideData(13) }, timeCrawl);
 
 
 
