@@ -6,7 +6,7 @@ import cheerio from 'cheerio'
 import rp from 'request-promise';
 import * as handlingVietNamWork from '../services/handlingVietNamWork'
 import * as VietNamWorkControllers from '../controllers/VietNamWorkControllers'
-let timeCrawl = 15 * 60 * 1000
+let timeCrawl = 2 * 60 * 60 * 1000
 
 let options = {
     method: 'GET',
@@ -18,7 +18,7 @@ let options = {
     }
 };
 var indexCrawl = 1
-let urlCrawl = 'https://employer.vietnamworks.com/v2/resume/search?searchResume%5Bkeyword%5D=&searchResume%5Bindustry%5D%5B0%5D=35&searchResume%5BjobLevelId%5D=5&searchResume%5Blocation%5D%5B0%5D=24&searchResume%5BlastModified%5D=365&searchResume%5ByearExperience%5D=&searchResume%5Bnationality%5D=&searchResume%5Blanguage%5D=&searchResume%5BlanguageLevel%5D=&searchResume%5BageFrom%5D=&searchResume%5BageTo%5D=&searchResume%5BsalaryFrom%5D=&searchResume%5BsalaryTo%5D=&searchResume%5BgenderId%5D=&searchResume%5BsortDirection%5D=desc&searchResume%5BsortField%5D=&btnResumeSearch=1&isSearchPage=1&utm_source=&utm_medium=&page='
+let urlCrawl = 'https://employer.vietnamworks.com/v2/resume/search?searchResume%5Bkeyword%5D=&searchResume%5BjobLevelId%5D=&searchResume%5BlastModified%5D=365&btnResumeSearch=1&searchResume%5ByearExperience%5D=&searchResume%5Bnationality%5D=&searchResume%5Blanguage%5D=&searchResume%5BlanguageLevel%5D=&searchResume%5BageFrom%5D=&searchResume%5BageTo%5D=&searchResume%5BsalaryFrom%5D=&searchResume%5BsalaryTo%5D=&searchResume%5BgenderId%5D=&isSearchPage=1&searchResume%5BsortDirection%5D=desc&searchResume%5BsortField%5D=&utm_source=&utm_medium=&page='
 
 const crawlOutsideData = async (url, index) => {
     options.uri = url + index
@@ -31,7 +31,6 @@ const crawlOutsideData = async (url, index) => {
             setTimeout(() => {
                 crawlOutsideData(url, index)
             }, 120000)
-            throw err
             return
         });
 }
@@ -45,7 +44,10 @@ const CrawlFullData = (data) => {
         rp(options)
             .then(async ($) => {
                 let result = await handlingVietNamWork.handlingDetail($, element)
-                await VietNamWorkControllers.insertOnlyRecord(result)
+                let check = await VietNamWorkControllers.findOnlyRecord(result.id_post)
+                if (check.length == 0) {
+                    await VietNamWorkControllers.insertOnlyRecord(result)
+                }
                 if (index == data.length - 1) {
                     indexCrawl++
                     crawlOutsideData(urlCrawl, indexCrawl)
@@ -53,12 +55,11 @@ const CrawlFullData = (data) => {
             })
             .catch(function (err) {
                 throw err
-                return
             });
     });
 }
 
-
 crawlOutsideData(urlCrawl, indexCrawl)
+setInterval(function () { crawlOutsideData(urlCrawl, indexCrawl) }, timeCrawl);
 
 module.exports = router;

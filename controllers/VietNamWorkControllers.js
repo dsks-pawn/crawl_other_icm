@@ -8,3 +8,16 @@ export const insertOnlyRecord = async data => {
         throw error
     }
 }
+
+export const findOnlyRecord = async data => {
+    try {
+        return await candidate_information.findAll({
+            raw: true,
+            where: {
+                id_post: data
+            }
+        })
+    } catch (error) {
+        throw error
+    }
+}

@@ -7,7 +7,7 @@ export const handlingOutside = ($, index) => {
             let dowload = $(this).find('div.col-sm-3.profile-info.text-center > div.download').text().match(/\d+/g) ? $(this).find('div.col-sm-3.profile-info.text-center > div.download').text().match(/\d+/g)[0] : null
             let credit = $(this).find('div.col-sm-3.profile-info.text-center > div.credit').text().match(/\d+/g) ? $(this).find('div.col-sm-3.profile-info.text-center > div.credit').text().match(/\d+/g)[0] : null
             result.push({
-                id_post: $(this).attr('id'),
+                id_post: $(this).attr('id').replace('resumeSearchResultRow-', ''),
                 title: $(this).find('.resume-title').text().trim(),
                 url: 'https://employer.vietnamworks.com' + $(this).find('.resume-title').attr('href'),
                 career: $(this).find('div.col-sm-6 > div > div:nth-child(1)').text().trim(),
