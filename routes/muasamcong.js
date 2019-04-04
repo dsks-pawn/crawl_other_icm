@@ -5,8 +5,11 @@ const router = express.Router();
 import cheerio from 'cheerio'
 import rp from 'request-promise';
 import * as handlingMuaSamCong from '../services/handlingMuaSamCong'
+import * as MuaSamCongControllers from '../controllers/MuaSamCongControllers'
 
-let timeCrawl = 15 * 60 * 1000
+
+
+let timeCrawl = 5 * 60 * 60 * 1000
 
 let options = {
     method: 'GET',
@@ -30,73 +33,160 @@ let options = {
 
 };
 
-
 var arrUrl = [
     {
         index: 1,
-        url: '/goi-thau?bid_target=bid-plan&aujusted_limited=0&date_type=PUBLIC_DT&datetimestart=27/03/2000&datetimesend=03/04/2019&page=',
+        url: '/goi-thau?bid_target=bid-plan&aujusted_limited=0&date_type=PUBLIC_DT&datetimestart=01/01/2000&datetimesend=03/04/2019&page=',
         type_vi: 'Kế hoạch lựa chọn nhà thầu',
         type_en: 'contractor_selection_plan'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-pq&aujusted_limited=0&date_type=PUBLIC_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=00&page=',
+        type_vi: 'Thông báo mời sơ tuyển/ mời quan tâm',
+        type_en: 'notice_of_preliminary_invitation_and_interest'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid&aujusted_limited=0&date_type=PUBLIC_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&page=',
+        type_vi: 'Thông báo mời thầu',
+        type_en: 'tender_notice'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-extend&aujusted_limited=0&date_type=INPUT_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&page=',
+        type_vi: 'Thông báo gia hạn/ đính chính',
+        type_en: 'notice_of_extension_of_correction'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-extend&aujusted_limited=1&date_type=INPUT_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&page=',
+        type_vi: 'Thông báo gia hạn/ đính chính',
+        type_en: 'notice_of_extension_of_correction'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-shortlist&aujusted_limited=0&date_type=INPUT_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&page=',
+        type_vi: 'Danh sách ngắn',
+        type_en: 'short_list'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-pre-select-result&aujusted_limited=0&date_type=PUBLIC_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=00&page=',
+        type_vi: 'Kết quả sơ tuyển',
+        type_en: 'prequalification_results'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-pre-select-result&aujusted_limited=1&date_type=PUBLIC_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=00&page=',
+        type_vi: 'Kết quả sơ tuyển',
+        type_en: 'prequalification_results'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-open-result&aujusted_limited=0&date_type=BID_OPEN_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=01&page=',
+        type_vi: 'Kết quả mở thầu điện tử',
+        type_en: 'e-bidding_results'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-open-result&aujusted_limited=1&date_type=BID_OPEN_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=1;5&page=',
+        type_vi: 'Kết quả mở thầu điện tử',
+        type_en: 'e-bidding_results'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-result&aujusted_limited=0&date_type=BID_OPEN_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=01&page=',
+        type_vi: 'Kết quả lựa chọn nhà thầu',
+        type_en: 'results_of_contractor_selection'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-result&aujusted_limited=0&date_type=BID_OPEN_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=00&page=',
+        type_vi: 'Kết quả lựa chọn nhà thầu',
+        type_en: 'results_of_contractor_selection'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-result&aujusted_limited=1&date_type=BID_OPEN_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=01&page=',
+        type_vi: 'Kết quả lựa chọn nhà thầu',
+        type_en: 'results_of_contractor_selection'
+    },
+    {
+        index: 1,
+        url: '/goi-thau?bid_target=bid-result&aujusted_limited=1&date_type=BID_OPEN_DT&datetimestart=01/01/2000&datetimesend=04/04/2019&bid_method=00&page=',
+        type_vi: 'Kết quả lựa chọn nhà thầu',
+        type_en: 'results_of_contractor_selection'
     }
 ]
 
-const crawlOutsideData = async (obj, index) => {
-    options.uri = 'http://muasamcong.mpi.gov.vn' + obj.url + obj.index
+const crawlOutsideData = async (index) => {
+    options.uri = 'http://muasamcong.mpi.gov.vn' + arrUrl[index].url + arrUrl[index].index
     rp(options)
         .then(async ($) => {
-            let result = await handlingMuaSamCong.handlingOutside($, obj)
-            // console.log('$ :', $);
-            console.log('result :', result);
-            // return
+            let result = await handlingMuaSamCong.handlingOutside($, arrUrl[index])
+            if (result.length > 0) CrawlFullData(result, index)
+            return
         })
         .catch(function (err) {
             setTimeout(() => {
-                crawlOutsideData(obj, index)
+                crawlOutsideData(index)
             }, 120000)
             throw err
         });
 }
-// crawlOutsideData(arrUrl[0], 0)
-// const CrawlFullData = (data, indexArr) => {
 
-//     data.forEach((element, index) => {
-//         options.uri = element.href
-//         rp(options)
-//             .then(async ($) => {
-//                 let result = await handlingDetailBds($, element)
-//                 result.index_crawl = indexArr
-//                 if (arrUrl[indexArr].type == "sale") {
-//                     let check = await MuaBanNhaDatControllers.findOnlyRecordDataLandForSaleByCodeNews(result.code_news)
-//                     if (check.length == 0) {
-//                         await MuaBanNhaDatControllers.insertOnlyRecordDataLandForSale(result)
-//                     }
-//                 } else {
-//                     let check = await MuaBanNhaDatControllers.findOnlyRecordDataLandForRentByCodeNews(result.code_news)
-//                     if (check.length == 0) {
-//                         await MuaBanNhaDatControllers.insertOnlyRecordDataLandForRent(result)
-//                     }
-//                 }
+const CrawlFullData = (data, indexArr) => {
+    data.forEach(async (element, index) => {
+        options.uri = element.url
+        rp(options)
+            .then(async ($) => {
+                let result = await handlingMuaSamCong.handlingDetail($, element)
+                let check = await MuaSamCongControllers.findOnlyRecord(element.id_news)
+                if (check.length == 0) {
+                    await MuaSamCongControllers.insertOnlyRecord(result)
+                }
+                if (index == data.length - 1) {
+                    arrUrl[indexArr].index++
+                    crawlOutsideData(indexArr)
+                    return
+                }
+            })
+            .catch(function (err) {
+                return
+            });
+    });
+}
 
-//                 if (index == data.length - 1) {
-//                     arrUrl[indexArr].index++
-//                     // if (arrUrl[indexArr].index < 10) {
+crawlOutsideData(0)
+crawlOutsideData(1)
+crawlOutsideData(2)
+crawlOutsideData(3)
+crawlOutsideData(4)
+crawlOutsideData(5)
+crawlOutsideData(6)
+crawlOutsideData(7)
+crawlOutsideData(8)
+crawlOutsideData(9)
+crawlOutsideData(10)
+crawlOutsideData(11)
+crawlOutsideData(12)
+crawlOutsideData(13)
+setInterval(function () { crawlOutsideData(0) }, timeCrawl);
+setInterval(function () { crawlOutsideData(1) }, timeCrawl);
+setInterval(function () { crawlOutsideData(2) }, timeCrawl);
+setInterval(function () { crawlOutsideData(3) }, timeCrawl);
+setInterval(function () { crawlOutsideData(4) }, timeCrawl);
+setInterval(function () { crawlOutsideData(5) }, timeCrawl);
+setInterval(function () { crawlOutsideData(6) }, timeCrawl);
+setInterval(function () { crawlOutsideData(7) }, timeCrawl);
+setInterval(function () { crawlOutsideData(8) }, timeCrawl);
+setInterval(function () { crawlOutsideData(9) }, timeCrawl);
+setInterval(function () { crawlOutsideData(10) }, timeCrawl);
+setInterval(function () { crawlOutsideData(11) }, timeCrawl);
+setInterval(function () { crawlOutsideData(12) }, timeCrawl);
+setInterval(function () { crawlOutsideData(13) }, timeCrawl);
 
-//                     // } else {
-//                     //     arrUrl[indexArr].index = 0
-//                     // }
-//                     setTimeout(() => {
-//                         crawlOutsideData(arrUrl[indexArr], indexArr)
-//                     }, 60000)
-//                     return
-//                 }
-//             })
-//             .catch(function (err) {
-//                 // setTimeout(() => {
-//                 //     crawlOutsideData(arrUrl[indexArr], indexArr)
-//                 // }, 120000)
-//                 return
-//             });
-//     });
-// }
+
 
 module.exports = router;

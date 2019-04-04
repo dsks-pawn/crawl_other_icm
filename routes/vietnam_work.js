@@ -17,7 +17,7 @@ let options = {
         return cheerio.load(body);
     }
 };
-var indexCrawl = 1
+var indexCrawl = 87
 let urlCrawl = 'https://employer.vietnamworks.com/v2/resume/search?searchResume%5Bkeyword%5D=&searchResume%5BjobLevelId%5D=&searchResume%5BlastModified%5D=365&btnResumeSearch=1&searchResume%5ByearExperience%5D=&searchResume%5Bnationality%5D=&searchResume%5Blanguage%5D=&searchResume%5BlanguageLevel%5D=&searchResume%5BageFrom%5D=&searchResume%5BageTo%5D=&searchResume%5BsalaryFrom%5D=&searchResume%5BsalaryTo%5D=&searchResume%5BgenderId%5D=&isSearchPage=1&searchResume%5BsortDirection%5D=desc&searchResume%5BsortField%5D=&utm_source=&utm_medium=&page='
 
 const crawlOutsideData = async (url, index) => {
@@ -59,7 +59,7 @@ const CrawlFullData = (data) => {
     });
 }
 
-crawlOutsideData(urlCrawl, indexCrawl)
-setInterval(function () { crawlOutsideData(urlCrawl, indexCrawl) }, timeCrawl);
+// crawlOutsideData(urlCrawl, indexCrawl)
+// setInterval(function () { crawlOutsideData(urlCrawl, indexCrawl) }, timeCrawl);
 
 module.exports = router;

@@ -7,7 +7,7 @@ export const handlingOutside = ($, obj) => {
             let data = {
                 id_news: $(this).find('td:nth-child(2) > a').text().trim(),
                 name_project: $(this).find('td:nth-child(3) > a').text().trim(),
-                investor: $(this).find('td:nth-child(3) > a').text().trim(),
+                investor: $(this).find('td:nth-child(4)').text().trim(),
                 time_public: timeResult,
                 type_en: obj.type_en,
                 type_vi: obj.type_vi,
@@ -21,3 +21,11 @@ export const handlingOutside = ($, obj) => {
     }
     return result
 }
+
+export const handlingDetail = ($, result) => {
+    result.raw = 'http://muasamcong.mpi.gov.vn' + $('#detailFrameResize').attr('src')
+    return result
+}
+
+
+
