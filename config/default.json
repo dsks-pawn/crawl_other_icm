@@ -1,7 +1,7 @@
 {
 	"server": {
 		"host": "localhost",
-		"port": 1133
+		"port": 1939
 	},
 	"sqlVietNamWork": {
 		"dialect": "mssql",
