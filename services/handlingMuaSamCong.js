@@ -24,6 +24,7 @@ export const handlingOutside = ($, obj) => {
 
 export const handlingDetail = ($, result) => {
     result.raw = 'http://muasamcong.mpi.gov.vn' + $('#detailFrameResize').attr('src')
+    result.raw_html = $('#detailFrameResize').html()
     return result
 }
 

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-router.use("/vietnamwork", require(__dirname + "/vietnam_work"))
+// router.use("/vietnamwork", require(__dirname + "/vietnam_work"))
 router.use("/muasamcong", require(__dirname + "/muasamcong"))
 
 
