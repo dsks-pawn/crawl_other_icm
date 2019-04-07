@@ -136,23 +136,32 @@ const crawlOutsideData = async (index) => {
 
 const CrawlFullData = (data, indexArr) => {
     data.forEach(async (element, index) => {
-        options.uri = element.url
-        rp(options)
-            .then(async ($) => {
-                let result = await handlingMuaSamCong.handlingDetail($, element)
-                let check = await MuaSamCongControllers.findOnlyRecord(element.id_news)
-                if (check.length == 0) {
-                    await MuaSamCongControllers.insertOnlyRecord(result)
-                }
-                if (index == data.length - 1) {
-                    arrUrl[indexArr].index++
-                    crawlOutsideData(indexArr)
+        if (element.urlCrawlDetail) {
+            options.uri = element.urlCrawlDetail
+            rp(options)
+                .then(async ($) => {
+                    let result = await handlingMuaSamCong.handlingDetail($, element)
+                    let check = await MuaSamCongControllers.findOnlyRecord(element.id_news)
+                    if (check.length == 0) {
+                        await MuaSamCongControllers.insertOnlyRecord(result)
+                    }
+                    if (index == data.length - 1) {
+                        arrUrl[indexArr].index++
+                        crawlOutsideData(indexArr)
+                        return
+                    }
+                })
+                .catch(function (err) {
                     return
-                }
-            })
-            .catch(function (err) {
+                });
+        } else {
+            if (index == data.length - 1) {
+                arrUrl[indexArr].index++
+                crawlOutsideData(indexArr)
                 return
-            });
+            }
+        }
+
     });
 }
 

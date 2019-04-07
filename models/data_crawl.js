@@ -25,8 +25,8 @@ export default sequelizeMuaSamCong.define('data_crawl', {
     raw: {
         type: Sequelize.CHAR(Number.MAX_SAFE_INTEGER)
     },
-    raw_html: {
-        type: Sequelize.CHAR(Number.MAX_SAFE_INTEGER)
+    id_crawl_iframe: {
+        type: Sequelize.CHAR(100)
     },
     type_en: {
         type: Sequelize.CHAR(500)

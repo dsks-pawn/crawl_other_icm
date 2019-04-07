@@ -15,6 +15,8 @@ export const handlingOutside = ($, obj) => {
             }
             if (data.name_project && data.name_project != 'null') {
                 data.url = 'http://muasamcong.mpi.gov.vn' + $(this).find('td:nth-child(3) > a').attr('href')
+                data.id_crawl_iframe = data.url.match(/id=(\d+)/)[1]
+                data.urlCrawlDetail = 'http://muasamcong.mpi.gov.vn/dt8082/BP/EP_EPJ_BPP102_OCVN.jsp?project_plan_id=' + data.id_crawl_iframe
             }
             result.push(data)
         })
@@ -23,8 +25,7 @@ export const handlingOutside = ($, obj) => {
 }
 
 export const handlingDetail = ($, result) => {
-    result.raw = 'http://muasamcong.mpi.gov.vn' + $('#detailFrameResize').attr('src')
-    result.raw_html = $('#detailFrameResize').contents().find("html").html();
+    result.raw = $('html').html()
     return result
 }
 
