@@ -5,7 +5,7 @@ export const handlingOutside = ($, obj) => {
             let timePublic = $(this).find('td:nth-child(5)').text().trim().split(' ')
             let timeResult = timePublic[0].split("/").slice(0, 3).reverse().join('/') + " " + timePublic[2] + ":00"
             let data = {
-                id_news: $(this).find('td:nth-child(2) > a').text().trim(),
+                id_news: $(this).find('td:nth-child(2)').text().trim(),
                 name_project: $(this).find('td:nth-child(3) > a').text().trim(),
                 investor: $(this).find('td:nth-child(4)').text().trim(),
                 time_public: timeResult,
